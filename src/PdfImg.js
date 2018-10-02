@@ -44,7 +44,7 @@ class PdfImg extends React.Component {
     )
   }
 
-  async _renderPdf() {
+  _renderPdf() {
     const { src, page: pageNumber } = this.props;
     const { width, height } = this.container.getBoundingClientRect();
 
