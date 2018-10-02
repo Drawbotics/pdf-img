@@ -24,11 +24,11 @@ class PdfImg extends React.Component {
     src: PropTypes.string.isRequired,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     this._renderPdf();
   }
 
-  async componentDidUpdate() {
+  componentDidUpdate() {
     this._renderPdf();
   }
 
@@ -48,18 +48,22 @@ class PdfImg extends React.Component {
     const { src, page: pageNumber } = this.props;
     const { width, height } = this.container.getBoundingClientRect();
 
-    const pdf = await PdfJs.getDocument(src);
-    const page = await pdf.getPage(parseInt(pageNumber));
-    const naturalViewport = page.getViewport(1);
+    PdfJs.getDocument(src)
+      .then((pdf) => {
+        return pdf.getPage(parseInt(pageNumber));
+      })
+      .then((page) => {
+        const naturalViewport = page.getViewport(1);
 
-    const scale = width / naturalViewport.width;
-    const viewport = page.getViewport(scale);
+        const scale = width / naturalViewport.width;
+        const viewport = page.getViewport(scale);
 
-    this.canvas.height = viewport.height;
-    this.canvas.width = viewport.width;
+        this.canvas.height = viewport.height;
+        this.canvas.width = viewport.width;
 
-    const canvasContext = this.canvas.getContext('2d');
-    page.render({ canvasContext, viewport });
+        const canvasContext = this.canvas.getContext('2d');
+        page.render({ canvasContext, viewport });
+      });
   }
 
 }

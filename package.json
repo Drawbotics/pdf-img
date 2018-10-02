@@ -1,6 +1,6 @@
 {
   "name": "pdf-img",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React component to render pdf documents as images.",
   "main": "dist/PdfImg.js",
   "module": "lib/index.js",
