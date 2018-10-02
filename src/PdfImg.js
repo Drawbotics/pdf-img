@@ -15,7 +15,7 @@ const styles = {
 class PdfImg extends React.Component {
 
   static defaultProps = {
-    page: 1,
+    page: '1',
   }
 
   static propTypes = {
