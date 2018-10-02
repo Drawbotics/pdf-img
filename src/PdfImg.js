@@ -8,7 +8,6 @@ import { css, cx } from 'emotion';
 const styles = {
   pdfImg: css`
     overflow: hidden;
-    border: 1px solid black;
   `,
 };
 
