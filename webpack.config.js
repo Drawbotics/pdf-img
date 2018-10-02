@@ -25,6 +25,7 @@ module.exports = {
   externals: [
     'react',
     'react-dom',
+    'pdf-dist',
   ],
   plugins: [
     new webpack.NamedModulesPlugin(),

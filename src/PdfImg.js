@@ -1,6 +1,5 @@
 import React from 'react';
 import PdfJs from 'pdfjs-dist';
-import 'pdfjs-dist/build/pdf.worker';
 import PropTypes from 'prop-types';
 import { css, cx } from 'emotion';
 
@@ -47,6 +46,7 @@ class PdfImg extends React.Component {
     const { src, page: pageNumber } = this.props;
     const { width, height } = this.container.getBoundingClientRect();
 
+    PdfJs.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.489/pdf.worker.js';
     PdfJs.getDocument(src)
       .then((pdf) => {
         return pdf.getPage(parseInt(pageNumber));
