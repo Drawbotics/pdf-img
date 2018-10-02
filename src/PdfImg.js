@@ -1,0 +1,68 @@
+import React from 'react';
+import PdfJs from 'pdfjs-dist';
+import 'pdfjs-dist/build/pdf.worker';
+import PropTypes from 'prop-types';
+import { css, cx } from 'emotion';
+
+
+const styles = {
+  pdfImg: css`
+    overflow: hidden;
+    border: 1px solid black;
+  `,
+};
+
+
+class PdfImg extends React.Component {
+
+  static defaultProps = {
+    page: 1,
+  }
+
+  static propTypes = {
+    page: PropTypes.string,
+    src: PropTypes.string.isRequired,
+  };
+
+  async componentDidMount() {
+    this._renderPdf();
+  }
+
+  async componentDidUpdate() {
+    this._renderPdf();
+  }
+
+  render() {
+    const { className, src, page, ...rest } = this.props;
+    return (
+      <div
+        {...rest}
+        className={cx(styles.pdfImg, className)}
+        ref={(container) => this.container = container}>
+        <canvas ref={(canvas) => this.canvas = canvas} />
+      </div>
+    )
+  }
+
+  async _renderPdf() {
+    const { src, page: pageNumber } = this.props;
+    const { width, height } = this.container.getBoundingClientRect();
+
+    const pdf = await PdfJs.getDocument(src);
+    const page = await pdf.getPage(parseInt(pageNumber));
+    const naturalViewport = page.getViewport(1);
+
+    const scale = width / naturalViewport.width;
+    const viewport = page.getViewport(scale);
+
+    this.canvas.height = viewport.height;
+    this.canvas.width = viewport.width;
+
+    const canvasContext = this.canvas.getContext('2d');
+    page.render({ canvasContext, viewport });
+  }
+
+}
+
+
+export default PdfImg;

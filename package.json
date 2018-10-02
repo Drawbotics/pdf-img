@@ -1,0 +1,38 @@
+{
+  "name": "pdf-img",
+  "version": "1.0.0",
+  "description": "A React component to render pdf documents as images.",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "clean": "rimraf dist && rimraf lib",
+    "build:umd": "NODE_ENV=production webpack --config webpack.config.js",
+    "build:module": "NODE_ENV=production babel src --out-dir lib/",
+    "build": "npm run clean && npm run build:umd && npm run build:module",
+    "prepublishOnly": "npm run build",
+    "example": "npx rdw serve --port 4001 docs.mdx"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^2.0.489",
+    "prop-types": "^15.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "better-webpack-progress": "^1.1.0",
+    "emotion": "^9.2.12",
+    "react-display-window": "^2.1.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-stylish": "^0.1.8"
+  },
+  "peerDependencies": {
+    "emotion": "^9.2.12",
+    "react": ">= 16",
+    "react-dom": ">= 16"
+  }
+}
